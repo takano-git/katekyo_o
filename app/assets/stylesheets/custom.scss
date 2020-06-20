@@ -5,6 +5,7 @@
 
 body {
   padding-top: 60px;
+  color: #666666;
 }
 
 section {
@@ -27,6 +28,7 @@ textarea {
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
+  color: #222222;
 }
 
 h1 {
@@ -102,11 +104,11 @@ nav{
 /* ユーザー新規登録フォーム */
 
 .label-signup {
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 .btn-signup {
-  margin-top: 10px;
+  margin-top: 30px;
 }
 
 /* error_messages */
@@ -124,4 +126,28 @@ nav{
   .form-control {
     color: $state-danger-text;
   }
+}
+
+/* ログインフォーム */
+
+.label-login {
+  margin-top: 10px;
+}
+
+.btn-login {
+  margin-top: 30px;
+}
+
+.ash-link{
+  color: #666666;
+}
+
+.ash-link:hover{
+  color: #999999;
+}
+
+/* ログインと新規作成フォームのパネルボディpadding */
+
+.form-padding-50 {
+    padding: 50px;
 }
