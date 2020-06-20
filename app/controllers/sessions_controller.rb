@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       # ログイン後にユーザーズインデックスにリダイレクトします。
       log_in user
-      redirect_to users
+      redirect_to users_url
     else
       # レンダリングが終わっているページでフラッシュメッセージを表示
       # render :new などのレンダーで使う。
@@ -16,4 +16,11 @@ class SessionsController < ApplicationController
       render :new
     end
   end
+  
+  def destroy
+    log_out
+    flash[:success] = 'ログアウトしました。'
+    redirect_to root_url
+  end
+  
 end
