@@ -4,7 +4,7 @@ module SessionsHelper
   def log_in(user)
     session[:user_id] = user.id
   end
-  
+
   # 永続的セッションを記憶します（Userモデルを参照。）
   # クッキーに値を入れている。つまりユーザーのPCに値を保持させている。
   def remember(user)
@@ -20,8 +20,7 @@ module SessionsHelper
     cookies.delete(:remember_token)
   end
 
-  # ログアウト
-  # セッションと＠current＿userを破棄します
+  # ログアウト セッションと＠current＿userを破棄します
   def log_out
     forget(current_user)
     session.delete(:user_id)
