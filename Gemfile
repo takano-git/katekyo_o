@@ -17,6 +17,11 @@ gem 'turbolinks',   '~> 5'
 gem 'jbuilder',     '~> 2.5'
 gem 'line-bot-api'
 gem 'dotenv-rails'
+gem 'rack-cors'
+gem 'devise'
+gem 'devise_token_auth'
+gem 'omniauth'
+gem 'omniauth-line'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
