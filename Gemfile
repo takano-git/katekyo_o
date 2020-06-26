@@ -15,8 +15,9 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks',   '~> 5'
 gem 'jbuilder',     '~> 2.5'
+# 以下２つがLINE bot 機能実装の為、入れたgem
 gem 'line-bot-api'
-gem 'dotenv-rails'
+gem 'dotenv-rails'       #環境変数を管理するgem
 # gem 'rack-cors'
 # gem 'devise'
 # gem 'devise_token_auth'
