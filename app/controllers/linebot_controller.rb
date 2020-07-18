@@ -57,8 +57,7 @@ class LinebotController < ApplicationController
             message = { type: 'text', text: 'プッシュ送信のテスト成功しました' }
             client.push_message(userid, message) #push送信
             # ここまで試しに追加したコード
-          end
-          if event.message['text'].eql?('おはよう')
+          elsif event.message['text'].eql?('おはよう')
             # userid = event['source']['userId']  #userId取得
             # message = { type: 'text', text: 'おはよう' }
             # client.push_message(userid, message) #push送信
