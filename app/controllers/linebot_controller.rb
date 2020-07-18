@@ -61,7 +61,8 @@ class LinebotController < ApplicationController
             # userid = event['source']['userId']  #userId取得
             # message = { type: 'text', text: 'おはよう' }
             # client.push_message(userid, message) #push送信
-            client.reply_message(event['replyToken'], 'リプライでおはようしてみたよ。成功だ、わーい')
+            message = { type: 'text', text: 'リプライでおはようしてみたよ。成功だ、わーい' }
+            client.reply_message(event['replyToken'], message)
           end
         end # case event.typeに対応するend
         
