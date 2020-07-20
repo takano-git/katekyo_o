@@ -29,20 +29,21 @@ class LinebotController < ApplicationController
       # もしくはフォローのイベントで新規作成するこの機能を削除する
       when Line::Bot::Event::Follow #フォローイベント
       user_id = event['source']['userId']  #LINEのuserId取得
-      user = User.find_by(uid_line: user_id)
+      user = User.find_by(uid: user_id)
       # userがnilならアプリに登録していないとし、新規作成する
-      if user == nil
-        user = User.new
-        user.uid_line = user_id
-        user.save
-        message = { type: 'text', text: 'カテキョに登録しました' }
-      else
-        message = { type: 'text', text: '登録しました' }
-      end
-      client.push_message(user.userId, message) #push送信
+      # if user == nil
+      #   user = User.new
+      #   user.uid = user_id
+      #   user.save
+      #   message = { type: 'text', text: 'カテキョに登録しました' }
+      # else
+      #   message = { type: 'text', text: '登録しました' }
+      # end
+      message = { type: 'text', text: 'フォローありがとうございます' }
+      client.push_message(user.uid, message) #push送信
     # ここまでカテキョボットがフォローされた場合、Useの中にuid_lineがあるか調べ、なかったら新規登録する機能
 
-      when Line::Bot::Event::Message # メッセージイベント？
+      when Line::Bot::Event::Message # メッセージイベント。ユーザーがカテキョアプリにメッセージを送った場合
         case event.type
         when Line::Bot::Event::MessageType::Text
           # LINEから送られてきたメッセージが「アンケート」と一致するかチェック
