@@ -15,6 +15,11 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
 gem 'turbolinks',   '~> 5'
 gem 'jbuilder',     '~> 2.5'
+# カレンダー機能の為、以下２つ追加。jqueryはバージョン指定していないものを
+# 以前追加していたので省略
+# gem 'jquery-rails', '4.3.3'
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 # 以下２つがLINE bot 機能実装の為、入れたgem
 gem 'line-bot-api'
 gem 'dotenv-rails'       #環境変数を管理するgem

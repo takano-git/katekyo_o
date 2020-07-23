@@ -5,6 +5,12 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+
+    # @title = params[:title]
+    # respond_to do |format|
+    #   format.html
+    #   format.js
+    # end
   end
   
   def new
