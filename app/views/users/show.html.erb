@@ -1,6 +1,9 @@
 <% provide(:title, @user.name) %>
-<h1><%= @user.name %>, <%= @user.email %></h1>
 <div>
+<h1><%= @user.name %>, <%= @user.email %></h1>
+  <%= link_to "←", user_path(date: @first_day.prev_month), class: "btn" %>
+  <%= link_to "→", user_path(date: @first_day.next_month), class: "btn" %>
+          
   <h1><%= @first_day.year %>/<%= @first_day.month %></h1>
   <table class="table table-bordered table-condensed table-hover">
     <thead>
@@ -20,8 +23,8 @@
       <% week2 = @one_month.slice(7..13) %>
       <% week3 = @one_month.slice(14..20) %>
       <% week4 = @one_month.slice(21..27) %>
-      <% week5 = @one_month.slice(28..37) %>
-      <% week6 = @one_month.slice(38..45) %>
+      <% week5 = @one_month.slice(28..34) %>
+      <% week6 = @one_month.slice(35..45) %>
 
       <tr>
       <% week1.each do |day| %>

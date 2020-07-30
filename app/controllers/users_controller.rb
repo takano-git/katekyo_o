@@ -10,9 +10,10 @@ class UsersController < ApplicationController
 
     @lessons = Lesson.where(user_id: @user.id)
     # カレンダー表示機能
-    @first_day = Date.current.beginning_of_month
+      @first_day = params[:date].nil? ? Date.current.beginning_of_month : params[:date].to_date
+    # @first_day = Date.current.beginning_of_month
     @last_day = @first_day.end_of_month
-    @one_month = [*@first_day..@last_day].to_a
+    one_month = [*@first_day..@last_day].to_a
 
     @day_of_the_week = @first_day.wday
     prev_month = @first_day.prev_month.all_month
@@ -26,7 +27,12 @@ class UsersController < ApplicationController
                                       # (@first_day.all_week.to_a.unshift(@first_day.all_week.to_a.slice(0).prev_day)).to_a + @one_month
     # @day_of_the_week > 1 ? @one_month = ((@first_day.all_week.to_a.unshift(@first_day.all_week.to_a.slice(0).prev_day)).to_a + @one_month) : @one_month
     # @day_of_the_week > 1 ? @one_month = ( (@first_day.all_week.to_a.unshift(@first_day.all_week.to_a.slice(0).prev_day)).to_a.slice(0..@day_of_the_week) + @one_month ) : @one_month
-    @day_of_the_week > 1 ? @one_month = ( (@first_day.all_week.to_a.unshift(@first_day.all_week.to_a.slice(0).prev_day)).to_a.slice(0..(@day_of_the_week-1)) + @one_month ) : @one_month
+
+    # @day_of_the_week > 1 ? @one_month = ( (@first_day.all_week.to_a.unshift(@first_day.all_week.to_a.slice(0).prev_day)).to_a.slice(0..(@day_of_the_week-1)) + @one_month ) : @one_month
+    # 月初が日曜日だったらone_monthに前月の日数を入れる
+    @day_of_the_week > 1 ? one_month = ( (@first_day.all_week.to_a.unshift(@first_day.all_week.to_a.slice(0).prev_day)).to_a.slice(0..(@day_of_the_week-1)) + one_month ) : one_month
+    # @one_monthに来月の日にちをたす
+    @one_month = one_month.to_a + next_month.to_a.slice(0..(42 - one_month.count - 1)) 
 
   end
   
