@@ -1,6 +1,7 @@
 class Lesson < ApplicationRecord
   belongs_to :user
 
+  validates :parent_id, presence: true
   validate :end_is_invalid_without_a_start
   validate :start_is_invalid_without_a_end
 

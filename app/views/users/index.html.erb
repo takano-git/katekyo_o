@@ -1,3 +1,44 @@
 <% provide(:title, "ユーザー一覧") %>
 
-<p>ユーザー一覧</p>
+<h1>ユーザー一覧</h1>
+
+<div class="col-md-10 col-md-offset-1">
+  <%= will_paginate %>
+  <table class="table table-condensed table-hover" id="table-users">
+    <thead>
+      <tr>
+        <th class="center"><%= User.human_attribute_name :id %></th>
+        <th><%= User.human_attribute_name :name %></th>
+        <th class="center"><%= User.human_attribute_name :email %></th>
+        <th class="center"><%= User.human_attribute_name :tutor %></th>
+        <th class="center"><%= User.human_attribute_name :parent %></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <% @users.each do |user| %>
+      <tr>
+        <td class="center"><%= user.id %></td>
+        <td>
+          <% if current_user.admin? %>
+            <%= link_to user.name, user %>
+          <% else %>
+            <%= user.name %>
+          <% end %>
+        </td>
+        <td class="center"><%= user.email %></td>
+        <td class="center"><%= user.tutor %></td>
+        <td class="center"><%= user.parent %></td>
+        <td class="center">
+          <%= link_to "基本情報編集", edit_basic_info_user_path(user), remote: true, class: "btn btn-success" %>
+          <%= link_to "削除", user, method: :delete,
+              data: { confirm: "削除してよろしいですか？" }, class: "btn btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+  <%= will_paginate %>
+</div>
+
+<!--モーダルウインドウ表示-->
+<div id="edit-basic-info" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>

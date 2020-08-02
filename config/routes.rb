@@ -14,7 +14,17 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   
   get    '/users/info', to: 'users#info'
-  resources :users
-  
+  resources :users do
+    member do
+      get 'edit_basic_info'       # /users/:id/edit_basic_info
+      patch 'update_basic_info'   # /users/:id/update_basic_info
+
+      # get 'lessons_oneday'        # /users/:id/lessons/oneday  モーダル表示　一日のlesson予約を表示
+      # patch 'lessons_oneday'
+      
+      get 'lessons/lessons_oneday'        # /users/:id/lessons/lessons_oneday  モーダル表示　一日のlesson予約を表示
+      patch 'lessons/lessons_oneday'
+    end    
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
