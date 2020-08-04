@@ -19,63 +19,24 @@
     </thead>
 
     <tbody>
+      <% weeks = [] %>
       <% week1 = @one_month.slice(0..6) %>
       <% week2 = @one_month.slice(7..13) %>
       <% week3 = @one_month.slice(14..20) %>
       <% week4 = @one_month.slice(21..27) %>
       <% week5 = @one_month.slice(28..34) %>
       <% week6 = @one_month.slice(35..45) %>
+      <% weeks = [week1, week2, week3, week4, week5, week6] %>
 
-      <tr>
-        <% week1.each do |day| %>
-          <td>
-            <%= link_to day.day, lessons_lessons_oneday_user_path(@user.id, cliked: day), remote: true, class: "btn btn-danger" %>
-          </td>
-        <% end %>
-      </tr>
-
-      <tr>
-        <% week2.each do |day| %>
-          <td>
-            <%= link_to day.day, lessons_lessons_oneday_user_path(@user.id), remote: true, class: "btn btn-danger" %>
-          </td>
-        <% end %>
-      </tr>
-
-      <tr>
-        <% week3.each do |day| %>
-          <td>
-            <%= link_to day.day, lessons_lessons_oneday_user_path(@user.id), remote: true, class: "btn btn-danger" %>
-          </td>
-        <% end %>
-      </tr>
-
-      <tr>
-        <% week4.each do |day| %>
-          <td>
-            <%= link_to day.day, lessons_lessons_oneday_user_path(@user.id), remote: true, class: "btn btn-danger" %>
-          </td>
-        <% end %>
-      </tr>
-
-      <tr>
-      <% week5.each do |day| %>
-          <td>
-            <%= link_to day.day, lessons_lessons_oneday_user_path(@user.id), remote: true, class: "btn btn-danger" %>
-          </td>
-        <% end %>
-      </tr>
-      
-      <% if week6.present? %>
+      <% weeks.each do |week| %>
         <tr>
-          <% week6.each do |day| %>
+          <% week.each do |day| %>
             <td>
-              <%= link_to day.day, lessons_lessons_oneday_user_path(@user.id), remote: true, class: "btn btn-danger" %>
+              <%= link_to day.day, lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
             </td>
           <% end %>
         </tr>
-      <% end %>
-      
+        <% end %>
     </tbody>
   </table>
 </div>

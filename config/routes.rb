@@ -21,10 +21,12 @@ Rails.application.routes.draw do
 
       # get 'lessons_oneday'        # /users/:id/lessons/oneday  モーダル表示　一日のlesson予約を表示
       # patch 'lessons_oneday'
-      
-      get 'lessons/lessons_oneday'        # /users/:id/lessons/lessons_oneday  モーダル表示　一日のlesson予約を表示
-      patch 'lessons/lessons_oneday'
-    end    
+
+      get 'lessons/lessons_oneday'        # /users/:id/lessons/lessons_oneday  モーダル表示　tuterが一日のlesson可能時間を編集
+      patch 'lessons/update_oneday'       # /users/:id/lessons/update_oneday
+
+
+    end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
