@@ -19,26 +19,32 @@
     </thead>
 
     <tbody>
-      <% weeks = [] %>
+      <% month = [] %>
       <% week1 = @one_month.slice(0..6) %>
       <% week2 = @one_month.slice(7..13) %>
       <% week3 = @one_month.slice(14..20) %>
       <% week4 = @one_month.slice(21..27) %>
       <% week5 = @one_month.slice(28..34) %>
       <% week6 = @one_month.slice(35..45) %>
-      <% weeks = [week1, week2, week3, week4, week5, week6] %>
+      <% month = [week1, week2, week3, week4, week5, week6] %>
 
-      <% weeks.each do |week| %>
+      <% month.each do |week| %>
         <tr>
           <% week.each do |day| %>
             <td>
               <%= link_to day.day, lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
+              <% @lessons.each do |lesson_day| %>
+                <% if day == lesson_day.lesson_date %>
+                  <p><%= lesson_day.start.strftime('%H:%M') %>〜<%= lesson_day.end.strftime('%H:%M') %></p>
+                <% end %>
+              <% end %>
             </td>
           <% end %>
         </tr>
         <% end %>
     </tbody>
   </table>
+  
 </div>
 
 <!--モーダルウインドウ表示-->

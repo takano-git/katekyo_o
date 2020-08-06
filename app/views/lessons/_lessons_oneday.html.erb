@@ -12,17 +12,20 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-          <%= form_with(model: @user, url: lessons_update_oneday_user_path(@user), local: true, method: :patch) do |f| %>
-            <%= render 'shared/error_messages', object: @user %>
+            <%= form_with(model: @lesson, url: lessons_update_oneday_user_path(@user), local: true, method: :patch) do |f| %>
+            <%= render 'shared/error_messages2', object: @lesson %>
 
-            <%= f.label :name, class: "label-#{yield(:class_text)}" %>
             <p><%= @user.name %></p>
 
             <%= f.label :start, class: "label-#{yield(:class_text)}" %>
             <%= f.time_field :start, class: "form-control" %>
 
             <%= f.label :end, class: "label-#{yield(:class_text)}" %>
-            <%= f.time_field :time, class: "form-control" %>
+            <%= f.time_field :end, class: "form-control" %>
+
+            <%= f.hidden_field :user_id, :value => @user.id %>
+
+            <%= f.hidden_field :lesson_date, :value => @day %>
 
             <div class="center">
               <%= f.submit yield(:button_text), class: "btn btn-primary btn-#{yield(:class_text)}" %>
