@@ -19,7 +19,7 @@ class LessonsController < ApplicationController
     @lesson = @user.lessons.new
   end
 
-  # tuterが入力したLesson可能時間を保存する
+  #  tuterが入力したLesson可能時間を保存する
   def update_oneday
     # @user = User.find(params[:id])
     @lesson = @user.lessons.new(lesson_date: params[:day])
