@@ -15,7 +15,7 @@ class LessonsController < ApplicationController
     # すでにLesson可能時間を入れていたら、表示のために用意しておく
     date_param = @first_day.to_s.slice(0..6)   
     @lessons = Lesson.where("lesson_date LIKE?", date_param)
-    # ユーザー（Tutor）にひもづくLessonインスタンスを生成して用意しとく
+    #  ユーザー（Tutor）にひもづくLessonインスタンスを生成して用意しとく
     @lesson = @user.lessons.new
   end
 
