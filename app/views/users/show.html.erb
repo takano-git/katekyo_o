@@ -33,9 +33,11 @@
           <% week.each do |day| %>
             <td>
               <%= link_to day.day, lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
-              <% @lessons.each do |lesson_day| %>
-                <% if day == lesson_day.lesson_date %>
-                  <p><%= lesson_day.start.strftime('%H:%M') %>〜<%= lesson_day.end.strftime('%H:%M') %></p>
+              <% if @lessons.count > 0 %>
+                <% @lessons.each do |lesson_day| %>
+                  <% if day == lesson_day.lesson_date %>
+                    <p><%= lesson_day.start.strftime('%H:%M') %>〜<%= lesson_day.end.strftime('%H:%M') %></p>
+                  <% end %>
                 <% end %>
               <% end %>
             </td>
