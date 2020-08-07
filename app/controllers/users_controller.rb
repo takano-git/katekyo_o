@@ -26,9 +26,12 @@ class UsersController < ApplicationController
     # @one_monthに来月の日にちをたす
     @one_month = one_month.to_a + next_month.to_a.slice(0..(42 - one_month.count - 1))
     
-    # すでにLesson可能時間を入れていたら、表示のためにインスタンスたちを用意
-    # date_param = @first_day.to_s.slice(0..6)   
-    @lessons = Lesson.where("lesson_date LIKE?", "%2020-08%")
+    # すでにLesson可能時間を入れていたら、表示のためにLessonインスタンスたちを用意
+    # date_param = @first_day.to_s.slice(0..6) 
+    
+    # @lessons = Lesson.where("lesson_date LIKE?", "%2020-08%")
+    search_date =  @first_day
+    @lessons = Lesson.where(lesson_date: search_date.in_time_zone.all_month)
   end
   
   def new
