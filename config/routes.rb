@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'resavation/create'
+
   root 'static_pages#top'
   
     # LINE BOT機能

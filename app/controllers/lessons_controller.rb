@@ -1,7 +1,6 @@
 class LessonsController < ApplicationController
   before_action :set_user, only: [:lessons_oneday, :update_oneday]
 
-  
   def index
   end
 
@@ -31,7 +30,7 @@ class LessonsController < ApplicationController
       redirect_to user_url @user
     end
   end
-  
+
   private
   
     def lesson_params

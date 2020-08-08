@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200731125315) do
+ActiveRecord::Schema.define(version: 20200808061653) do
 
   create_table "lessons", force: :cascade do |t|
     t.datetime "start"
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(version: 20200731125315) do
     t.integer "parent_id"
     t.integer "status", default: 0
     t.index ["user_id"], name: "index_lessons_on_user_id"
+  end
+
+  create_table "resavations", force: :cascade do |t|
+    t.datetime "start"
+    t.datetime "end"
+    t.integer "tutor_id"
+    t.integer "status", default: 0
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_resavations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

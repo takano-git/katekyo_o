@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     # すでにLesson可能時間を入れていたら、表示のためにLessonインスタンスたちを用意
     # date_param = @first_day.to_s.slice(0..6) 
     
-    # @lessons = Lesson.where("lesson_date LIKE?", "%2020-08%")
+    # @lessons = Lesson.where("lesson_date LIKE?", "%2020-08%") 注意！！herokuでエラーになり、cloud9ではエラーにならない間違った書き方
     search_date =  @first_day
     @lessons = Lesson.where(lesson_date: search_date.in_time_zone.all_month)
   end
