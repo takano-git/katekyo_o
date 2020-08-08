@@ -32,7 +32,11 @@
         <tr>
           <% week.each do |day| %>
             <td>
-              <%= link_to day.day, lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
+              <% if current_user.tutor? %>
+                <%= link_to day.day, lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
+              <% elsif current_user.parent? %>
+                <%= link_to day.day, resavation_edit_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
+              <% end %>
               <% if @lessons.count > 0 %>
                 <% @lessons.each do |lesson_day| %>
                   <% if day == lesson_day.lesson_date %>
@@ -51,6 +55,7 @@
 
 <!--モーダルウインドウ表示-->
 <div id="lessons_oneday" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div id="resavation_edit_oneday" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"></div>
 
 <script>
 </script>
