@@ -33,31 +33,45 @@
         <tr>
           <% week.each do |day| %>
             <td>
-              <%= day.day %><br>
-              <% if @lessons.count > 0 %>
-                <% @lessons.each do |lesson_day| %>
-                  <% if day == lesson_day.lesson_date %>
 
-                    <% if current_user.tutor? %>
-                      <!--もしカレントユーザーが家庭教師だったらLessonを新規作成できるボタン-->
-                      <%= link_to "#{lesson_day.start.strftime('%H:%M')}-#{lesson_day.finish.strftime('%H:%M')}", lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
-                    
-                    <!--もしcurrent_userがParentだったら-->
-                    <% elsif current_user.parent? %>
-                      <%= link_to "#{lesson_day.start.strftime('%H:%M')}-#{lesson_day.finish.strftime('%H:%M')}", resavation_edit_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
-                    <% end %>
-                  <% end %>
-                <% end %>
-              <% end %>
+              
+              <%= day.day %><br>
+              
+              <!--もし昨日以降の古い日付だったら-->
               <% if day < Date.today %>
                 <button class="btn btn-default" disabled>x</button>
               <!--もしcurrent_userがTutorだったら-->
               <% elsif current_user.tutor? %>
-                <%= link_to "　", lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
+                <% if @lessons.count > 0 %>
+                  <% @lessons.each do |lesson_day| %>
+                    <% if day == lesson_day.lesson_date %>
+                      <%= link_to "#{lesson_day.start.strftime('%H:%M')}-#{lesson_day.finish.strftime('%H:%M')}", lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
+                    <% else %>
+              　　    　<%= link_to "登録", lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-default" %>
+                    <% end %>
+                  <% end %>
+                <% end %>
               <!--もしcurrent_userがParentだったら-->
               <% elsif current_user.parent? %>
-                <%= link_to "　", resavation_edit_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
+                <% if @lessons.count > 0 %>
+                  <% @lessons.each do |lesson_day| %>
+                    <% if day == lesson_day.lesson_date %>
+                      <%= link_to "#{lesson_day.start.strftime('%H:%M')}-#{lesson_day.finish.strftime('%H:%M')}", resavation_edit_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
+                    <% else %>
+                      <button class="btn btn-default" disabled>　</button>
+                    <% end %>
+                  <% end %>
+              　<% end %>
+              　
               <% end %>
+              
+              
+              
+
+
+              
+              
+              
             </td>
           <% end %>
         </tr>
