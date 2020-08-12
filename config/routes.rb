@@ -29,7 +29,7 @@ Rails.application.routes.draw do
       patch 'lessons/update_oneday'       # /users/:id/lessons/update_oneday
 
       get 'resavation/edit_oneday'        # /users/:id/resavation/edit_oneday(.:format)	resavation#edit_oneday モーダル表示　parentがlessonの予約をする編集画面
-      patch 'resavation/update_oneday'
+      post 'resavation/update_oneday'
 
     end
   end

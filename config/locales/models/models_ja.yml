@@ -13,11 +13,11 @@ ja:
           updated_at: 更新日
         lesson:
           start: 開始時間
-          end: 終了時間
+          finish: 終了時間
           user_id: 家庭教師ID
         resavation:
           start: 開始時間
-          end: 終了時間
+          finish: 終了時間
           tutor_id: 家庭教師ID
           user_id: ピアレントID
           status: ステータス

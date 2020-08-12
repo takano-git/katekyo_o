@@ -12,7 +12,9 @@
               アカウント <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "自分の情報", current_user %></li>
+              <% if current_user.tutor? %>
+                <li><%= link_to "自分のカレンダーを見る", current_user %></li>
+              <% end %>
               <li><%= link_to "設定", '#' %></li>
               <li class="divider"></li>
               <li>
