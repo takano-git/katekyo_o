@@ -12,9 +12,9 @@ class LessonsController < ApplicationController
     # @user = User.find(params[:id])
     @day = params[:day]
     # すでにLesson可能時間を入れていたら、表示のために用意しておく
-    date_param = @first_day.to_s.slice(0..6) 
+    # date_param = @first_day.to_s.slice(0..6) 
 
-    @lessons = Lesson.where(lesson_date: date_param)
+    # @lessons = Lesson.where(lesson_date: date_param)
     #  ユーザー（Tutor）にひもづくLessonインスタンスを生成して用意しとく
     @lesson = @user.lessons.new
   end

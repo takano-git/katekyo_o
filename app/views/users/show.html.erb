@@ -36,27 +36,29 @@
 
               
               <%= day.day %><br>
+              <% @lessons =  Lesson.where(lesson_date: day, user_id: params[:id])%>
               
               <!--もし昨日以降の古い日付だったら-->
               <% if day < Date.today %>
                 <button class="btn btn-default" disabled>x</button>
+                
               <!--もしcurrent_userがTutorだったら-->
               <% elsif current_user.tutor? %>
+              　<%= link_to "新規登録", lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-default" %>
                 <% if @lessons.count > 0 %>
-                  <% @lessons.each do |lesson_day| %>
-                    <% if day == lesson_day.lesson_date %>
-                      <%= link_to "#{lesson_day.start.strftime('%H:%M')}-#{lesson_day.finish.strftime('%H:%M')}", lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
-                    <% else %>
-              　　    　<%= link_to "登録", lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-default" %>
-                    <% end %>
+                  <% @lessons.each do |lesson| %>
+                    <%= link_to "#{lesson.start.strftime('%H:%M')}-#{lesson.finish.strftime('%H:%M')}", resavation_edit_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
                   <% end %>
                 <% end %>
+                
+
               <!--もしcurrent_userがParentだったら-->
               <% elsif current_user.parent? %>
                 <% if @lessons.count > 0 %>
                   <% @lessons.each do |lesson_day| %>
                     <% if day == lesson_day.lesson_date %>
                       <%= link_to "#{lesson_day.start.strftime('%H:%M')}-#{lesson_day.finish.strftime('%H:%M')}", resavation_edit_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
+                      <br>
                     <% else %>
                       <button class="btn btn-default" disabled>　</button>
                     <% end %>

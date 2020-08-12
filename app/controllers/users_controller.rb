@@ -7,7 +7,6 @@ class UsersController < ApplicationController
   
   def show
   # @user = User.find(params[:id])
-
     @lessons = Lesson.where(user_id: @user.id)
     # カレンダー表示機能
     @first_day = params[:date].nil? ? Date.current.beginning_of_month : params[:date].to_date

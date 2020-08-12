@@ -7,7 +7,11 @@
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      <h1 class="modal-title">家庭教師　<%= @tutor.name %>さんの<%= @day %>の予約可能時間</h1>
+      <% if current_user.tutor? %>
+        <h1 class="modal-title">家庭教師　<%= @tutor.name %>さんの<%= @day %>の予約状況</h1>
+      <% else %>
+        <h1 class="modal-title">家庭教師　<%= @tutor.name %>さんの<%= @day %>の予約可能時間</h1>
+      <% end %>
     </div>
     <div class="modal-body">
       <div class="row">
@@ -39,12 +43,30 @@
                         <%= f.hidden_field :tutor_id, :value =>@tutor.id %>
                         <%= f.hidden_field :resavation_date, :value =>@day %>
                         <%= f.hidden_field :user_id, :value =>current_user.id %>
-                        <%= f.submit "#{yield(:button_text)}", data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger btn-#{yield(:class_text)}" %>
+                        <% if i > Time.current.hour %>
+                          <%= f.submit "#{yield(:button_text)}", data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger btn-#{yield(:class_text)}" %>
+                        <% else %>
+                          <button class="btn btn-default" disabled>x</button>
+                        <% end %>
                       <% end %>
                     </td>
                   <!--もしカレントユーザーが親以外なら文字列◎などのみ出力-->
                   <% else %>
-                    <td><%= rhs %></td>
+                    <td>
+                    <%= form_with(modal: @resavation, url: resavation_update_oneday_user_path, local: true) do |f| %>
+                        <%= render 'shared/error_messages3', object: @resavation %>
+                        <%= f.hidden_field :start, :value =>i %>
+                        <%= f.hidden_field :finish, :value =>i %>
+                        <%= f.hidden_field :tutor_id, :value =>@tutor.id %>
+                        <%= f.hidden_field :resavation_date, :value =>@day %>
+                        <%= f.hidden_field :user_id, :value =>current_user.id %>
+                        <% if i > Time.current.hour %>
+                          <%= f.submit "#{yield(:button_text)}",disabled: true, data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger btn-#{yield(:class_text)}" %>
+                        <% else %>
+                          <button class="btn btn-default" disabled>x</button>
+                        <% end %>
+                      <% end %>
+                    </td>
                   <% end %>
 
 

@@ -53,7 +53,7 @@ class ResavationController < ApplicationController
  
     if @resavation.save
       log_in @user # 保存成功後、ログインします。
-      flash[:success] ="家庭教師　#{@tutor.name}さんの授業を#{@resavation.resavation_date}　#{@resavation.start.hour}時に予約しました。"
+      flash[:success] ="家庭教師　#{@tutor.name}さんの家庭教師レッスンを#{@resavation.resavation_date}　#{@resavation.start.hour}時に予約しました。"
       redirect_to  controller: :users, action: :show, id: params[:tutor_id]  # tutorの個別ページに飛ぶ
     else
       render :edit_oneday
