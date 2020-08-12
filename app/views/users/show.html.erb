@@ -39,6 +39,7 @@
                   <% if day == lesson_day.lesson_date %>
    
                     <% if current_user.tutor? %>
+                      <!--もしカレントユーザーが家庭教師だったらLessonを新規作成できるボタン-->
                       <%= link_to "#{lesson_day.start.strftime('%H:%M')}-#{lesson_day.finish.strftime('%H:%M')}", lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>
                     <!--もしcurrent_userがParentだったら-->
                     <% elsif current_user.parent? %>

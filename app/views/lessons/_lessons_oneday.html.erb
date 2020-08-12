@@ -20,8 +20,8 @@
             <%= f.label :start, class: "label-#{yield(:class_text)}" %>
             <%= f.time_field :start, class: "form-control" %>
 
-            <%= f.label :end, class: "label-#{yield(:class_text)}" %>
-            <%= f.time_field :end, class: "form-control" %>
+            <%= f.label :finish, class: "label-#{yield(:class_text)}" %>
+            <%= f.time_field :finish, class: "form-control" %>
 
             <%= f.hidden_field :user_id, :value => @user.id %>
 
