@@ -45,6 +45,7 @@
               <!--もしcurrent_userがTutorだったら-->
               <% elsif current_user.tutor? %>
               　<%= link_to "新規登録", lessons_lessons_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-default" %>
+              　<br>
                 <% if @lessons.count > 0 %>
                   <% @lessons.each do |lesson| %>
                     <%= link_to "#{lesson.start.strftime('%H:%M')}-#{lesson.finish.strftime('%H:%M')}", resavation_edit_oneday_user_path(@user.id, day: day), remote: true, class: "btn btn-danger" %>

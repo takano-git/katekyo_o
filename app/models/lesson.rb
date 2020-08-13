@@ -17,6 +17,6 @@ class Lesson < ApplicationRecord
   
     # レッスンの終わりの時間が始まりの時間よりはやい場合は無効
   def finish_is_invalid_oler_than_start
-    errors.add(:finish, "は開始時間より遅い時間を入力してください") if finish < start
+    errors.add(:finish, "は開始時間より遅い時間を入力してください") if finish <= start
   end
 end

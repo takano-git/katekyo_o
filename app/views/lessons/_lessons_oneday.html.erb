@@ -7,7 +7,7 @@
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
-      <h1 class="modal-title"><%= @day %>のLesson受付時間を新規登録/追加</h1>
+      <h1 class="modal-title"><%= @day %>のLesson受付時間を新規登録</h1>
     </div>
     <div class="modal-body">
       <div class="row">
@@ -22,7 +22,8 @@
 
             <%= f.label :finish, class: "label-#{yield(:class_text)}" %>
             <%= f.time_field :finish, class: "form-control" %>
-
+            
+            <!--この場合user_idは家庭教師をさす-->
             <%= f.hidden_field :user_id, :value => @user.id %>
 
             <%= f.hidden_field :lesson_date, :value => @day %>

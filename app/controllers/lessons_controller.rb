@@ -7,7 +7,7 @@ class LessonsController < ApplicationController
   def create
   end
 
-    # tuterがモーダルでLesson可能日を入力する編集画面
+    # tuterがモーダルでLesson可能日を入力するモーダルの編集画面
   def lessons_oneday
     # @user = User.find(params[:id])
     @day = params[:day]
@@ -19,16 +19,27 @@ class LessonsController < ApplicationController
     @lesson = @user.lessons.new
   end
 
-  #  tuterが入力したLesson可能時間を保存する
+  #  tuterがモーダル入力したLesson可能時間を保存する
   def update_oneday
-    # @user = User.find(params[:id])
-    @lesson = @user.lessons.new(lesson_date: params[:day])
-    if @lesson.update_attributes(lesson_params)
+    # @user = User.find(params[:id]) ここではtutorのこと
+    
+    # すでに登録されているLessonを取得
+    start_data = "#{params[:lesson][:lesson_date]} #{params[:lesson][:start]}"
+    finish_data = "#{params[:lesson][:lesson_date]} #{params[:lesson][:finish]}"
+    already_there_lessons = Lesson.where(lesson_date: params[:date])
+    # already_there_lessons.each do |atl|
+    # 比較開始日付 <= 対象終了日付 AND 比較終了日付 >= 対象開始日付
+        # (params[:lesson][:start]).to_datetime <= alt.finish AND (params[:lesson][:finish]).to_datetime  >= alt.finish
+    # end
+    
+    
+    @lesson = @user.lessons.new(start: start_data, finish: finish_data, user_id: params[:lesson][:user_id], lesson_date: params[:lesson][:lesson_date],status: 1)
+    if @lesson.save
       flash[:success] = '新規作成に成功しました。'
       redirect_to @user
     else
       flash[:danger] = "Lesson可能時間の登録に失敗しました。やり直して下さい。"
-      redirect_to user_url @user
+      redirect_to user_url @user   # 家庭教師のusers#show
     end
   end
 
