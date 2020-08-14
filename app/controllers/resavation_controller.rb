@@ -12,6 +12,9 @@ class ResavationController < ApplicationController
     # end
     # @resavation_hours = resavation_hours
     @resavations = Resavation.where(tutor_id: @tutor.id).where(resavation_date: params[:day])
+    
+    resavation_hour_statuses = []
+    
     @resavation_hour_statuses = ["◎","◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎"]
     # @lessons.each do |lesson|
       

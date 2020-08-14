@@ -38,8 +38,8 @@
               <%= day.day %><br>
               <% @lessons =  Lesson.where(lesson_date: day, user_id: params[:id])%>
               
-              <!--もし昨日以降の古い日付だったら-->
-              <% if day < Date.today %>
+              <!--もし昨日以降の古い日付だったら(タイムゾーンつきで計算）  -->
+              <% if day.to_time.in_time_zone('Asia/Tokyo') < Date.current %>
                 <button class="btn btn-default" disabled>x</button>
                 
               <!--もしcurrent_userがTutorだったら-->

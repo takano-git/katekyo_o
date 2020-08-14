@@ -43,8 +43,13 @@
                         <%= f.hidden_field :tutor_id, :value =>@tutor.id %>
                         <%= f.hidden_field :resavation_date, :value =>@day %>
                         <%= f.hidden_field :user_id, :value =>current_user.id %>
-                        <% if i > Time.current.hour %>
+                        <!--もし選択された日付が本日である　かつ　時間が現在時間より大きかったら予約ボタンを出す-->
+                        <% if @day.to_date == Date.current && i > Time.current.hour %>
                           <%= f.submit "#{yield(:button_text)}", data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger btn-#{yield(:class_text)}" %>
+                        <!--もし選択した日が未来日なら、予約ボタンを出す-->
+                        <% elsif @day.to_date > Date.today %>
+                          <%= f.submit "#{yield(:button_text)}", data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger btn-#{yield(:class_text)}" %>
+                        <!--それ以外はxボタンを表示-->
                         <% else %>
                           <button class="btn btn-default" disabled>x</button>
                         <% end %>
