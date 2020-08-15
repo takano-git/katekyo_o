@@ -30,12 +30,26 @@
               </tr>
             </thead>
             <tbody>
+              <% btn_status = "" %>
               <% @resavation_hour_statuses.each_with_index do |rhs, i|%>
+                <% if rhs == 2 %>
+                  <% btn_status = "Full" %>
+                <% elsif rhs == 1 %>
+                  <% btn_status = "◎" %>
+                <% else %>
+                  <% btn_status = "x" %>
+                <% end %>
                 <tr>
                   <td><%= i %></td>
                   <!--もしカレントユーザーが親だったら、フォームにして◎を予約ボタンにし、予約を保存する-->
                   <% if current_user.parent? %>
                     <td>
+                      <% if rhs == 0 || rhs == 2 %>
+                        <button class="btn btn-default" disabled><%= btn_status %></button>
+                      <% elsif rhs == 1 %>
+                      
+                      
+                      
                       <%= form_with(modal: @resavation, url: resavation_update_oneday_user_path, local: true) do |f| %>
                         <%= render 'shared/error_messages3', object: @resavation %>
                         <%= f.hidden_field :start, :value =>i %>
@@ -45,16 +59,20 @@
                         <%= f.hidden_field :user_id, :value =>current_user.id %>
                         <!--もし選択された日付が本日である　かつ　時間が現在時間より大きかったら予約ボタンを出す-->
                         <% if @day.to_date == Date.current && i > Time.current.hour %>
-                          <%= f.submit "#{yield(:button_text)}", data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger btn-#{yield(:class_text)}" %>
+                          <%= f.submit btn_status, data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger" %>
                         <!--もし選択した日が未来日なら、予約ボタンを出す-->
                         <% elsif @day.to_date > Date.today %>
-                          <%= f.submit "#{yield(:button_text)}", data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger btn-#{yield(:class_text)}" %>
+                          <%= f.submit btn_status, data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger" %>
                         <!--それ以外はxボタンを表示-->
                         <% else %>
                           <button class="btn btn-default" disabled>x</button>
                         <% end %>
                       <% end %>
                     </td>
+
+                      
+                      
+                      <% end %>
                   <!--もしカレントユーザーが親以外なら文字列◎などのみ出力-->
                   <% else %>
                     <td>
@@ -66,7 +84,7 @@
                         <%= f.hidden_field :resavation_date, :value =>@day %>
                         <%= f.hidden_field :user_id, :value =>current_user.id %>
                         <% if i > Time.current.hour %>
-                          <%= f.submit "#{yield(:button_text)}",disabled: true, data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger btn-#{yield(:class_text)}" %>
+                          <%= f.submit btn_status,disabled: true, data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger" %>
                         <% else %>
                           <button class="btn btn-default" disabled>x</button>
                         <% end %>

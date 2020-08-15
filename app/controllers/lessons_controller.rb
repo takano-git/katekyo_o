@@ -31,7 +31,7 @@ class LessonsController < ApplicationController
     comparison_start_data = "#{params[:lesson][:lesson_date]} #{params[:lesson][:start]}+0900".to_datetime
     comparison_finish_data = "#{params[:lesson][:lesson_date]} #{params[:lesson][:finish]}+0900".to_datetime
     
-    # 新規作成用オブジェクト
+    # 新規作成用オブジェクト(lessonを新規作成したらステータスを１にする)
     @lesson = @user.lessons.new(start: start_data, finish: finish_data, user_id: params[:lesson][:user_id], lesson_date: params[:lesson][:lesson_date],status: 1)
 
     already_there_lessons.each do |atl|

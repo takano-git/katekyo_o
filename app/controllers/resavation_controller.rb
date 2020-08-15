@@ -1,31 +1,44 @@
 class ResavationController < ApplicationController
-  # ParentがTutorのLessonを予約する画面
+  # ParentがTutorのLessonを予約するモーダル画面
   def edit_oneday
     @resavation = Resavation.new
     @tutor = User.find(params[:id])
     @day = params[:day]
     @lessons = Lesson.where(user_id: @tutor.id).where("lesson_date LIKE?", @day)
     
-    # resavation_hours = []
-    # for resavation_hours in 0..23 do
-    #   resavation_hours.push(0) 
-    # end
-    # @resavation_hours = resavation_hours
     @resavations = Resavation.where(tutor_id: @tutor.id).where(resavation_date: params[:day])
+    # 予約が入っている時間を格納する予定の配列
+    resavation_hours = []
+    # resavation_hour_statuses = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
-    resavation_hour_statuses = []
+    # レッスンが指定した日の２４時間で存在しているかを表す。　０：レッスン登録なし　１：登録なし
+    lesson_exist = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
-    @resavation_hour_statuses = ["◎","◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎", "◎"]
-    # @lessons.each do |lesson|
-      
-    # start_date <= {対象終了日付} AND end_date >= {対象開始日付}
-    # lesson.start <= 
-    # end
+    @lessons.each do |lesson|
+      # 配列lesson_existのlesson.start.hour番目にステータス１（レッスン登録あり）に変える
+      lesson_exist[lesson.start.hour..lesson.start.hour] = 1
+      # resavation_hour_statuses[lesson.start.hour..lesson.start.hour] = lesson.status
+      # Lesson_start_hours =lesson_start_hours.push(lesson.start.hour)
+      # @resavation_hour_statuses = resavation_hour_statuses
+      lesson_exist
+    end
+    
+    # 指定した日の予約がすでに入っている時間を配列に入れる（配列resavationを返す）
+    @resavations.each do |resavation|
+      # @resavation_hour_statuses = resavation_hour_statuses.push(resavation.start.hour)
+      resavation_hours =resavation_hours.push(resavation.start)
+      resavation_hours
+    end
+    
+    # @resavation_hour_statusesに予約のステータス２４時間分を詰めてviewに渡す　
+    # ０：Lessonなし x　１：Lessonあり　予約あり　◎　２：lessonあり　予約あり　Full
+    resavation_hours.each do |r|
+      lesson_exist[r.hour..r.hour] = 2
+      @resavation_hour_statuses = lesson_exist
+      @resavation_hour_statuses
+    end
   end
-  #   24.times{|num|
-  #     check_resavation_status(num)
-  #   }
-  # end
+
 
   def create
     # @resavation= Resavation.new(resavation_params)
