@@ -31,6 +31,12 @@
             </thead>
             <tbody>
               <% btn_status = "" %>
+              
+              <% if @resavation_hour_statuses.nil? %>
+                <% @resavation_hour_statuses = @lesson_exist %>
+              <% end %>
+              
+              
               <% @resavation_hour_statuses.each_with_index do |rhs, i|%>
                 <% if rhs == 2 %>
                   <% btn_status = "Full" %>
@@ -49,28 +55,26 @@
                       <% elsif rhs == 1 %>
                       
                       
-                      
-                      <%= form_with(modal: @resavation, url: resavation_update_oneday_user_path, local: true) do |f| %>
-                        <%= render 'shared/error_messages3', object: @resavation %>
-                        <%= f.hidden_field :start, :value =>i %>
-                        <%= f.hidden_field :finish, :value =>i %>
-                        <%= f.hidden_field :tutor_id, :value =>@tutor.id %>
-                        <%= f.hidden_field :resavation_date, :value =>@day %>
-                        <%= f.hidden_field :user_id, :value =>current_user.id %>
-                        <!--もし選択された日付が本日である　かつ　時間が現在時間より大きかったら予約ボタンを出す-->
-                        <% if @day.to_date == Date.current && i > Time.current.hour %>
-                          <%= f.submit btn_status, data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger" %>
-                        <!--もし選択した日が未来日なら、予約ボタンを出す-->
-                        <% elsif @day.to_date > Date.today %>
-                          <%= f.submit btn_status, data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger" %>
-                        <!--それ以外はxボタンを表示-->
-                        <% else %>
-                          <button class="btn btn-default" disabled>x</button>
+                        <%= form_with(modal: @resavation, url: resavation_update_oneday_user_path, local: true) do |f| %>
+                          <%= render 'shared/error_messages3', object: @resavation %>
+                          <%= f.hidden_field :start, :value =>i %>
+                          <%= f.hidden_field :finish, :value =>i %>
+                          <%= f.hidden_field :tutor_id, :value =>@tutor.id %>
+                          <%= f.hidden_field :resavation_date, :value =>@day %>
+                          <%= f.hidden_field :user_id, :value =>current_user.id %>
+                          <!--もし選択された日付が本日である　かつ　時間が現在時間より大きかったら予約ボタンを出す-->
+                          <% if @day.to_date == Date.current && i > Time.current.hour %>
+                            <%= f.submit btn_status, data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger" %>
+                          <!--もし選択した日が未来日なら、予約ボタンを出す-->
+                          <% elsif @day.to_date > Date.today %>
+                            <%= f.submit btn_status, data: { confirm: "#{@day}　#{i}時に予約してよろしいですか？" }, class: "btn btn-danger" %>
+                          <!--それ以外はxボタンを表示-->
+                          <% else %>
+                            <button class="btn btn-default" disabled>x</button>
+                          <% end %>
                         <% end %>
-                      <% end %>
                     </td>
 
-                      
                       
                       <% end %>
                   <!--もしカレントユーザーが親以外なら文字列◎などのみ出力-->
@@ -92,9 +96,9 @@
                     </td>
                   <% end %>
 
-
                 </tr>
-              <% end %>
+              <!--@resavation_hour_statuses.each_with_index do |rhs, i|の終わり-->
+              <% end %>  
             </tbody>
           </table>
 

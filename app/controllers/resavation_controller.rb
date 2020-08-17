@@ -23,6 +23,8 @@ class ResavationController < ApplicationController
       lesson_exist
     end
     
+    @lesson_exist = lesson_exist
+    
     # 指定した日の予約がすでに入っている時間を配列に入れる（配列resavationを返す）
     @resavations.each do |resavation|
       # @resavation_hour_statuses = resavation_hour_statuses.push(resavation.start.hour)
