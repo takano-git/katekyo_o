@@ -4,9 +4,12 @@ class ResavationController < ApplicationController
     @resavation = Resavation.new
     @tutor = User.find(params[:id])
     @day = params[:day]
-    @lessons = Lesson.where(user_id: @tutor.id).where("lesson_date LIKE?", @day)
-    
-    @resavations = Resavation.where(tutor_id: @tutor.id).where(resavation_date: params[:day])
+    # cloud9 ではエラーにならないけどherokuでエラーになる書き方。users_controllerにもある
+    # @lessons = Lesson.where(user_id: @tutor.id).where("lesson_date LIKE?", @day)
+    @lessons = Lesson.where(user_id: @tutor.id).where(lesson_date: @day.in_time_zone)
+
+    @resavations = Resavation.where(tutor_id: @tutor.id).where(resavation_date: @day)
+
     # 予約が入っている時間を格納する予定の配列
     resavation_hours = []
     # resavation_hour_statuses = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -15,8 +18,13 @@ class ResavationController < ApplicationController
     lesson_exist = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
     @lessons.each do |lesson|
+      range = lesson.start.hour..lesson.finish.hour
+      range.each do |hour|
+        lesson_exist[hour..hour] = 1
+        lesson_exist
+      end
       # 配列lesson_existのlesson.start.hour番目にステータス１（レッスン登録あり）に変える
-      lesson_exist[lesson.start.hour..lesson.start.hour] = 1
+      # lesson_exist[lesson.start.hour..lesson.start.hour] = 1
       # resavation_hour_statuses[lesson.start.hour..lesson.start.hour] = lesson.status
       # Lesson_start_hours =lesson_start_hours.push(lesson.start.hour)
       # @resavation_hour_statuses = resavation_hour_statuses
