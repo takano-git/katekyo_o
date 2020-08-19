@@ -1,6 +1,6 @@
 <% provide(:title, 'ユーザーアカウントの作成') %>
 <h1>ようこそカテキョへ</h1>
-<p class= text-center>メールアドレスで登録</p>
+<p class= text-center>メールアドレスを登録し、お気に入りの家庭教師を見つけましょう</p>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -20,7 +20,9 @@
     
           <%= f.label :password_confirmation, class: "label-signup" %>
           <%= f.password_field :password_confirmation, class: "form-control", placeholder: "確認パスワード" %>
-    
+
+          <%= f.hidden_field :parent, :value =>true %>
+
           <%= f.submit "メールアドレスで登録", class: "btn btn-primary btn-danger btn-lg btn-block btn-signup" %>
         <% end %>
       </div>
