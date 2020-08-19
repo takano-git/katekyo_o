@@ -49,7 +49,7 @@ class LessonsController < ApplicationController
     
     
     if @lesson.save
-      flash[:success] = '新規作成に成功しました。'
+      flash[:success] = 'Lesson可能時間の登録に成功しました。'
       redirect_to @user
     else
       flash[:danger] = "Lesson可能時間の登録に失敗しました。"

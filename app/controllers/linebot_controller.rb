@@ -47,7 +47,7 @@ class LinebotController < ApplicationController
         case event.type
         when Line::Bot::Event::MessageType::Text
           # LINEから送られてきたメッセージが「アンケート」と一致するかチェック
-          if event.message['text'].eql?('アンケート')
+          if event.message['text'].eql?('予約')
           # ここからコメントにしたコード 以下2行
             # private内のtemplateメソッドを呼び出します。
             # client.reply_message(event['replyToken'], template)
@@ -55,7 +55,7 @@ class LinebotController < ApplicationController
 
             # ここから試しに追加したコード
             userid = event['source']['userId']  #userId取得
-            message = { type: 'text', text: 'プッシュ送信のテスト成功しました' }
+            message = { type: 'text', text: '予約状況はxxxです。' }
             client.push_message(userid, message) #push送信
             # ここまで試しに追加したコード
           elsif event.message['text'].eql?('おはよう')
