@@ -7,8 +7,10 @@ Rails.application.routes.draw do
     # LINE BOT機能
   post '/callback' => 'linebot#callback'
 
-    # 新規登録機能
+    # 新規登録機能(parent用)
   get '/signup', to: 'users#new'
+    # 新規登録機能(tuter用)
+  get '/signup_tutor', to: 'users#new_tutor'   # users#new_tutor
   
     # ログイン機能
   get    '/login', to: 'sessions#new'
