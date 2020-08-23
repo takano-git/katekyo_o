@@ -58,11 +58,19 @@ class LinebotController < ApplicationController
             message = { type: 'text', text: '予約状況はxxxです。' }
             client.push_message(userid, message) #push送信
             # ここまで試しに追加したコード
-          elsif event.message['text'].eql?('おはよう')
+          elsif event.message['text'].eql?('明日空いてる')
             # userid = event['source']['userId']  #userId取得
             # message = { type: 'text', text: 'おはよう' }
             # client.push_message(userid, message) #push送信
-            message = { type: 'text', text: 'リプライでおはようしてみたよ。成功だ、わーい' }
+            #
+            @lessons = Lesson.where(lesson_date: date.current)
+            if @lessons.empty?
+              message = { type: 'text', text: '明日予約できる家庭教師はいません。' }
+              message
+            else
+              message = { type: 'text', text: '明日予約できる家庭教師は・・・〇〇さんです。' }
+              message
+            end
             client.reply_message(event['replyToken'], message)
           end
         end # case event.typeに対応するend

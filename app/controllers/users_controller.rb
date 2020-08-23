@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def index
     @users = User.paginate(page: params[:page])
   end
-  
+
   def show
   # @user = User.find(params[:id])
     @lessons = Lesson.where(user_id: @user.id)
@@ -24,29 +24,28 @@ class UsersController < ApplicationController
     @day_of_the_week > 1 ? one_month = ( (@first_day.all_week.to_a.unshift(@first_day.all_week.to_a.slice(0).prev_day)).to_a.slice(0..(@day_of_the_week-1)) + one_month ) : one_month
     # @one_monthに来月の日にちをたす
     @one_month = one_month.to_a + next_month.to_a.slice(0..(42 - one_month.count - 1))
-    
+
     # すでにLesson可能時間を入れていたら、表示のためにLessonインスタンスたちを用意
     # date_param = @first_day.to_s.slice(0..6) 
-    
+
     # @lessons = Lesson.where("lesson_date LIKE?", "%2020-08%") 注意！！herokuでエラーになり、cloud9ではエラーにならない間違った書き方
     search_date =  @first_day
     @lessons = Lesson.where(lesson_date: search_date.in_time_zone.all_month)
   end
-  
   def new
     @user = User.new # form_withに渡すユーザーオブジェクトを生成し、インスタンス変数に代入します。
   end
-  
   def new_tutor
     @user = User.new # form_withに渡すユーザーオブジェクトを生成し、インスタンス変数に代入します。
   end
-  
+
   def create
     @user = User.new(user_params)
     if @user.save
       log_in @user # 保存成功後、ログインします。
       flash[:success] = 'アカウント作成に成功しました。'
-      redirect_to @user
+      redirect_to #友達追加画面
+      # redirect_to @user
     else
       render :new
     end
@@ -54,7 +53,7 @@ class UsersController < ApplicationController
   
   def info
   end
-  
+
   def edit_basic_info
   end
 
