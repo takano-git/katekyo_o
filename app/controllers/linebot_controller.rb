@@ -63,7 +63,7 @@ class LinebotController < ApplicationController
             # message = { type: 'text', text: 'おはよう' }
             # client.push_message(userid, message) #push送信
             #
-            @lessons = Lesson.where(lesson_date: date.current)
+            @lessons = Lesson.where(lesson_date: Date.current)
             if @lessons.empty?
               message = { type: 'text', text: '明日予約できる家庭教師はいません。' }
               message
