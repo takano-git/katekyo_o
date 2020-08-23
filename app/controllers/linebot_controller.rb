@@ -64,11 +64,18 @@ class LinebotController < ApplicationController
             # client.push_message(userid, message) #push送信
             #
             @lessons = Lesson.where(lesson_date: Date.current)
+            
             if @lessons.empty?
               message = { type: 'text', text: '明日予約できる家庭教師はいません。' }
               message
             else
-              message = { type: 'text', text: '明日予約できる家庭教師は・・・〇〇さんです。' }
+              available_tutors = []
+              @lessons.each do|lesson|
+              
+              available_tutors.push(lesson.user_id)
+              available_tutors
+            end
+              message = { type: 'text', text: '明日予約できる家庭教師は・・・#{available_tutors[0]}さんです。' }
               message
             end
             client.reply_message(event['replyToken'], message)
