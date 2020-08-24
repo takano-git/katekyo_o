@@ -23,7 +23,7 @@ class LinebotController < ApplicationController
 
     events.each { |event|
       case event
-      
+
     # ここから　カテキョボットがフォローされた場合、Useの中にuid_lineがあるか調べ、なかったら新規登録する機能
       # （ちょっと強引。後でメールアドレスの取得し、チェックする機能をつける）
       # もしくはフォローのイベントで新規作成するこの機能を削除する
@@ -54,7 +54,7 @@ class LinebotController < ApplicationController
           # ここまでコメントにしたコード
 
             # ここから試しに追加したコード
-            userid = event['source']['userId']  #userId取得
+            userid = event['source']['userId']  #userId取��
             message = { type: 'text', text: '予約状況はxxxです。' }
             client.push_message(userid, message) #push送信
             # ここまで試しに追加したコード
@@ -62,10 +62,25 @@ class LinebotController < ApplicationController
             # userid = event['source']['userId']  #userId取得
             # message = { type: 'text', text: 'おはよう' }
             # client.push_message(userid, message) #push送信
+            #
+            @lessons = Lesson.where(lesson_date: Date.current)
             
-            message = { type: 'text', text: 'リプライでおはようしてみたよ。成功だ、わーい' }
+            if @lessons.empty?
+              message = { type: 'text', text: '明日予約できる家庭教師はいません。' }
+              message
+            else
+              available_tutors = []
+              @lessons.each do|lesson|
+              
+              available_tutors.push(lesson.user_id)
+              available_tutors
+            end
+        
+            message = { type: 'text', text: "明日予約できる家庭教師は・・・#{available_tutors[0]}さんです。" }
+            message
+            end
             client.reply_message(event['replyToken'], message)
-          end
+          end  # if event.message['text'].eql?('予約')に対するend
         end # case event.typeに対応するend
         
       end # case event (25行目)に対応するend
