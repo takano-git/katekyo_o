@@ -54,7 +54,7 @@ class LinebotController < ApplicationController
           # ここまでコメントにしたコード
 
             # ここから試しに追加したコード
-            userid = event['source']['userId']  #userId取得
+            userid = event['source']['userId']  #userId取��
             message = { type: 'text', text: '予約状況はxxxです。' }
             client.push_message(userid, message) #push送信
             # ここまで試しに追加したコード
@@ -75,8 +75,9 @@ class LinebotController < ApplicationController
               available_tutors.push(lesson.user_id)
               available_tutors
             end
-              message = { type: 'text', text: '明日予約できる家庭教師は・・・#{available_tutors[0]}さんです。' }
-              message
+        
+            message = { type: 'text', text: "明日予約できる家庭教師は・・・#{available_tutors[0]}さんです。" }
+            message
             end
             client.reply_message(event['replyToken'], message)
           end
